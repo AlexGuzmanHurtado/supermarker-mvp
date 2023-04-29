@@ -24,6 +24,8 @@ namespace Supermarket_mvp.Views
 
         }
 
+
+
         private void AssociateAndRaiseViewEvents()
         {
             BtnSearch.Click += delegate { SearchEvent?.Invoke(this, EventArgs.Empty); };
@@ -35,14 +37,14 @@ namespace Supermarket_mvp.Views
                     SearchEvent?.Invoke(this, EventArgs.Empty);
                 }
             };
-            }
+        }
 
         public string PayModeId
         {
             get { return TxtPayModeId.Text; }
             set { TxtPayModeId.Text = value; }
         }
-     
+
         public string PayModeName
         {
             get { return TxtPayModeName.Text; }
@@ -53,14 +55,16 @@ namespace Supermarket_mvp.Views
             get { return TxtPayModeObservation.Text; }
             set { TxtPayModeObservation.Text = value; }
         }
-        public string SearchValue {
-                get { return TxtSearch.Text; }
-                set { TxtSearch.Text = value; }
-            }
-        public bool IsEdit { 
-                get { return isEdit; }
-                set { isEdit = value; }
-            }
+        public string SearchValue
+        {
+            get { return TxtSearch.Text; }
+            set { TxtSearch.Text = value; }
+        }
+        public bool IsEdit
+        {
+            get { return isEdit; }
+            set { isEdit = value; }
+        }
         public bool IsSuccessful
         {
             get { return isSuccessful; }
@@ -83,5 +87,24 @@ namespace Supermarket_mvp.Views
         {
             DgPayMode.DataSource = payModeList;
         }
+        private static PayModeView instance;
+
+        public static PayModeView GetInstance()
+        {
+            if (instance == null || instance.IsDisposed)
+            {
+                instance = new PayModeView();
+            }
+            else
+            {
+                if (instance.WindowState == FormWindowState.Minimized)
+                {
+                    instance.WindowState = FormWindowState.Normal;
+                }
+                instance.BringToFront();
+            }
+            return instance;
+        }
     }
+
 }
